@@ -5,10 +5,6 @@ function fillPayload() {
     document.getElementById('userInput').value = select.value;
 }
 
-
-// Simulating a logged-in user session
-document.cookie = "SessionToken=SecretAdmin123; path=/";
-
 function postComment() {
     const input = document.getElementById('userInput').value;
     const outputDiv = document.getElementById('output');
@@ -18,8 +14,8 @@ function postComment() {
     const timestamp = new Date().toLocaleTimeString();
     
     if (isSecure) {
-        // --- الوضع الآمن (Secure Mode) ---
-        // 1. Sanitization (DOMPurify simulation)
+      
+// --- (Secure Mode) ---
         const safeSpan = document.createElement('span');
         safeSpan.textContent = input; 
         safeSpan.style.color = "green";
@@ -27,15 +23,14 @@ function postComment() {
         outputDiv.innerHTML = "<strong>Safe Output:</strong> ";
         outputDiv.appendChild(safeSpan);
         
-        // تسجيل الحدث في الجدول
         addLog(timestamp, input, "BLOCKED 🛡️", "log-blocked");
         
     } else {
-        // --- الوضع المصاب (Vulnerable Mode) ---
-        // تنفيذ الكود مباشرة
+        
+        // ---  (Vulnerable Mode) ---
         outputDiv.innerHTML = "<strong>Raw Output:</strong> " + input;
         
-        // تسجيل الحدث في الجدول
+       
         addLog(timestamp, input, "EXECUTED ⚠️", "log-executed");
     }
 }
@@ -47,7 +42,7 @@ function addLog(time, payload, action, cssClass) {
         <td><code>${payload.substring(0, 30)}...</code></td>
         <td class="${cssClass}">${action}</td>
     </tr>`;
-    tbody.innerHTML = row + tbody.innerHTML; // إضافة في الأعلى
+    tbody.innerHTML = row + tbody.innerHTML; 
 }
 
 function toggleSecurity() {
@@ -61,4 +56,5 @@ function toggleSecurity() {
         statusBox.innerText = "SYSTEM STATUS: VULNERABLE (Protection OFF) 🔓";
         statusBox.className = "status-box vuln-mode";
     }
+
 }
