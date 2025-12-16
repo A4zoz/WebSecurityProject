@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Input Validation Test</title>
+    <script src="validation.js"></script>
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        input { margin: 5px 0; padding: 6px; width: 300px; }
+        button { padding: 6px 12px; }
+        .pass { color: green; }
+        .fail { color: red; }
+    </style>
+</head>
+<body>
+
+<h2>Project 2 – Secure Input Validation Library</h2>
+
+<h3>Email Validation</h3>
+<input id="email" placeholder="Enter email">
+<button onclick="checkEmail()">Test</button>
+<p id="emailResult"></p>
+
+<h3>Password Validation</h3>
+<input id="password" placeholder="Enter password">
+<button onclick="checkPassword()">Test</button>
+<p id="passwordResult"></p>
+
+<h3>Username Validation</h3>
+<input id="username" placeholder="Enter username">
+<button onclick="checkUsername()">Test</button>
+<p id="usernameResult"></p>
+
+<h3>XSS & Sanitization Test</h3>
+<input id="xss" placeholder="Enter any input">
+<button onclick="checkXSS()">Test</button>
+<p id="xssResult"></p>
+
+<script>
+function checkEmail() {
+    const v = isValidEmail(email.value);
+    emailResult.innerHTML = v ? "Valid Email" : "Invalid Email";
+    emailResult.className = v ? "pass" : "fail";
+}
+
+function checkPassword() {
+    const v = isStrongPassword(password.value);
+    passwordResult.innerHTML = v ? "Strong Password" : "Weak Password";
+    passwordResult.className = v ? "pass" : "fail";
+}
+
+function checkUsername() {
+    const v = isValidUsername(username.value);
+    usernameResult.innerHTML = v ? "Valid Username" : "Invalid Username";
+    usernameResult.className = v ? "pass" : "fail";
+}
+
+function checkXSS() {
+    const result = validateInput(xss.value);
+    if (result.valid) {
+        xssResult.innerHTML = "Safe Input: " + result.sanitized;
+        xssResult.className = "pass";
+    } else {
+        xssResult.innerHTML = "Blocked: " + result.reason;
+        xssResult.className = "fail";
+    }
+}
+</script>
+
+</body>
+</html>
